@@ -1,4 +1,4 @@
-package com.flexisaf.week7;
+package com.flexisaf.week8;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

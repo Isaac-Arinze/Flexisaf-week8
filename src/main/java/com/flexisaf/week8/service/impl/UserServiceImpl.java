@@ -1,18 +1,21 @@
-package com.flexisaf.week7.service.impl;
+package com.flexisaf.week8.service.impl;
 
-import com.flexisaf.week7.dto.UserDto;
-import com.flexisaf.week7.exception.EmailAlreadyExistsException;
-import com.flexisaf.week7.exception.ResourceNotFoundException;
-import com.flexisaf.week7.model.User;
-import com.flexisaf.week7.repository.UserRepository;
-import com.flexisaf.week7.service.UserService;
+import com.flexisaf.week8.dto.UserDto;
+import com.flexisaf.week8.exception.EmailAlreadyExistsException;
+import com.flexisaf.week8.exception.ResourceNotFoundException;
+import com.flexisaf.week8.model.User;
+import com.flexisaf.week8.repository.UserRepository;
+import com.flexisaf.week8.service.JwtService;
+import com.flexisaf.week8.service.UserService;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,12 @@ public class UserServiceImpl implements UserService {
 
     private ModelMapper modelMapper;
 
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtService jwtService;
+
 
     @Autowired
     public void setModelMapper(ModelMapper modelMapper) {
@@ -42,8 +51,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserDto createUser(UserDto userDto) {
         logger.info("Creating user with email: {}", userDto.getEmail());
+        userDto.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
 
-        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+        Optional <User> optionalUser = userRepository.findByEmail(userDto.getEmail());
         if (optionalUser.isPresent()) {
             throw new EmailAlreadyExistsException("Email already exists for user");
         }
@@ -91,4 +101,22 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
         userRepository.delete(existingUser);
     }
+
+    @Override
+    public UserDto loginUser(UserDto userDto) {
+        Authentication authenticate = authenticationManager
+                                    .authenticate(new UsernamePasswordAuthenticationToken(
+                                    userDto.getEmail(), userDto.getPassword()
+                )
+        );
+
+
+//        Optional<User> user = userRepository.findByEmail(userDto.getEmail());
+         if (authenticate.isAuthenticated()){
+        return jwtService.generateToken(userDto);
+
+    }
+         return null;
+    }
+
 }

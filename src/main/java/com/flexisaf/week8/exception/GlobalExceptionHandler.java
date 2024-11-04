@@ -1,4 +1,4 @@
-package com.flexisaf.week7.exception;
+package com.flexisaf.week8.exception;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ import java.util.Map;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<ErrorDetails> handleResourceNotException (ResourceNotFoundException  exception,
+    @ExceptionHandler(com.flexisaf.week8.exception.ResourceNotFoundException.class)
+    public ResponseEntity<ErrorDetails> handleResourceNotException (com.flexisaf.week8.exception.ResourceNotFoundException exception,
                                                                     WebRequest webRequest){
         ErrorDetails errorDetails = new ErrorDetails(
                 LocalDateTime.now(),

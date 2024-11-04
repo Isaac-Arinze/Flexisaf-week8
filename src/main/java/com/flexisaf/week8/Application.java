@@ -1,4 +1,4 @@
-package com.flexisaf.week7;
+package com.flexisaf.week8;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

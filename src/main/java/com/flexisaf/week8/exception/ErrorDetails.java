@@ -1,4 +1,4 @@
-package com.flexisaf.week7.exception;
+package com.flexisaf.week8.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

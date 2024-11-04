@@ -1,4 +1,4 @@
-package com.flexisaf.week7.dto;
+package com.flexisaf.week8.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -32,5 +32,7 @@ public class UserDto {
     @NotEmpty (message = "Please provide a valid email address")
     @Email
     private String email;
+    @NotEmpty (message = "Please provide your password")
+    private String password;
 
 }

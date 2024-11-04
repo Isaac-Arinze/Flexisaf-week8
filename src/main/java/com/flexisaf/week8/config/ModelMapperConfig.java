@@ -1,4 +1,4 @@
-package com.flexisaf.week7.config;
+package com.flexisaf.week8.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

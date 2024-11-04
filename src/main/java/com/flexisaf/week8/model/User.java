@@ -1,4 +1,4 @@
-package com.flexisaf.week7.model;
+package com.flexisaf.week8.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,5 +29,7 @@ public class User {
     private String phoneNumber;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
+
+    private String password;
 }
 

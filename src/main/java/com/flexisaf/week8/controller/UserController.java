@@ -1,11 +1,10 @@
-package com.flexisaf.week7.controller;
+package com.flexisaf.week8.controller;
 
-import com.flexisaf.week7.dto.UserDto;
-import com.flexisaf.week7.service.UserService;
+import com.flexisaf.week8.dto.UserDto;
+import com.flexisaf.week8.repository.UserRepository;
+import com.flexisaf.week8.service.UserService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +18,8 @@ public class UserController {
 
 
     private final UserService userService;
+
+    private final UserRepository userRepository;
 
     @PostMapping("/create")
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto user) {
@@ -49,5 +50,10 @@ public class UserController {
     public ResponseEntity<String> deleteUser(@PathVariable("id") Long userId) {
         userService.deleteUser(userId);
         return new ResponseEntity<>("User successfully deleted", HttpStatus.OK);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<UserDto> loginUser(@RequestBody @Valid UserDto userDto){
+        UserDto loginUser = userService.loginUser(userDto);
+        return new ResponseEntity<>(loginUser, HttpStatus.OK);
     }
 }

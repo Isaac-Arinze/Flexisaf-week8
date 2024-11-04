@@ -1,6 +1,6 @@
-package com.flexisaf.week7.service;
+package com.flexisaf.week8.service;
 
-import com.flexisaf.week7.dto.UserDto;
+import com.flexisaf.week8.dto.UserDto;
 
 
 import java.util.List;
@@ -17,4 +17,7 @@ public interface UserService {
 
     void deleteUser (Long userId);
 
+    UserDto loginUser(UserDto userDto);
+
+//    UserDto findByEmail (UserDto userDto);
 }
