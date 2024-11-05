@@ -1,5 +1,6 @@
 package com.flexisaf.week8.service.impl;
 
+import com.flexisaf.week8.dto.LoginDto;
 import com.flexisaf.week8.dto.UserDto;
 import com.flexisaf.week8.exception.BadRequestException;
 import com.flexisaf.week8.exception.EmailAlreadyExistsException;
@@ -103,15 +104,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String loginUser(UserDto userDto) {
+    public String loginUser(LoginDto loginDto) {
         // Authenticate the user
         Authentication authenticate = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(userDto.getEmail(), userDto.getPassword())
+                new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword())
         );
 
         if (authenticate.isAuthenticated()) {
             // Load the user by email to get the UserDetails object
-            UserDetails userDetails = userDetailsService.loadUserByUsername(userDto.getEmail());
+            UserDetails userDetails = userDetailsService.loadUserByUsername(loginDto.getEmail());
 
             // Generate and return JWT token
             return jwtService.generateToken(userDetails);  // Pass UserDetails to generateToken
