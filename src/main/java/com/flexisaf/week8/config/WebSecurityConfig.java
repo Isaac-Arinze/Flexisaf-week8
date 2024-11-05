@@ -28,7 +28,7 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())  // Disable CSRF for simplicity (you might want to enable it for production)
                 .authorizeHttpRequests(request -> request
-                        .requestMatchers("/create").permitAll()  // Public endpoint, permit all
+                        .requestMatchers("/api/create/**").permitAll()  // Public endpoint, permit all
                         .anyRequest().authenticated()  // All other endpoints need authentication
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);  // Add JWT filter before default authentication filter
