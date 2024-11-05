@@ -13,21 +13,19 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class CustomUserDetailsService  implements UserDetailsService {
+public class CustomUserDetailsService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final UserService userService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Find the user by email
+        Optional<User> optionalUser = userRepository.findByEmail(username);
 
-        Optional<User> user = userRepository.findByEmail(username);
-//        User> user = userService.findByEmail(username);
+        // Check if the user is present
+        User user = optionalUser.orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + username));
 
-        if(Objects.isNull(user)) {
-            System.out.println("User not available");
-            throw new UsernameNotFoundException("User Not DFound");
-
-        }
+        // Return the CustomUserDetails object
         return new CustomUserDetails(user);
     }
 }

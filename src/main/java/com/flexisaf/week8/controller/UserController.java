@@ -1,12 +1,13 @@
 package com.flexisaf.week8.controller;
 
 import com.flexisaf.week8.dto.UserDto;
-import com.flexisaf.week8.repository.UserRepository;
 import com.flexisaf.week8.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
 
-
     private final UserService userService;
-
-    private final UserRepository userRepository;
 
     @PostMapping("/create")
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto user) {
@@ -51,9 +49,15 @@ public class UserController {
         userService.deleteUser(userId);
         return new ResponseEntity<>("User successfully deleted", HttpStatus.OK);
     }
+
     @PostMapping("/login")
-    public ResponseEntity<UserDto> loginUser(@RequestBody @Valid UserDto userDto){
-        UserDto loginUser = userService.loginUser(userDto);
-        return new ResponseEntity<>(loginUser, HttpStatus.OK);
+    public ResponseEntity<String> loginUser(@RequestBody @Valid UserDto userDto) {
+        String token = userService.loginUser(userDto);
+        return ResponseEntity.ok(token);  // Return JWT Token
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<String> logout(Authentication authentication) throws BadRequestException {
+        return userService.logout(authentication);  // Return success message
     }
 }

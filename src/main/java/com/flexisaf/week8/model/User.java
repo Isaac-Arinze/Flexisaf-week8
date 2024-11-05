@@ -6,12 +6,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "_users")
+
 public class User {
 
     @Id
@@ -31,5 +34,9 @@ public class User {
     private String email;
 
     private String password;
+//    @Column (columnDefinition = "boolean value is false")
+    private boolean isLoggedIn;
+
+    private LocalDateTime lastLoggedIn;
 }
 

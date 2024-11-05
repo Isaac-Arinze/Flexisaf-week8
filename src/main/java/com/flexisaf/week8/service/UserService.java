@@ -1,7 +1,8 @@
 package com.flexisaf.week8.service;
 
 import com.flexisaf.week8.dto.UserDto;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 
 import java.util.List;
 
@@ -15,9 +16,9 @@ public interface UserService {
 
     UserDto updateUser(UserDto user);
 
-    void deleteUser (Long userId);
+    void deleteUser(Long userId);
 
-    UserDto loginUser(UserDto userDto);
+    String loginUser(UserDto userDto);  // Return JWT token
 
-//    UserDto findByEmail (UserDto userDto);
+    ResponseEntity<String> logout(Authentication authentication);  // Returns ResponseEntity
 }

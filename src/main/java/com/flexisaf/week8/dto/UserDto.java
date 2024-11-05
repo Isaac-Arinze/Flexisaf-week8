@@ -1,5 +1,6 @@
 package com.flexisaf.week8.dto;
 
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
@@ -12,27 +13,32 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
+
     private Long id;
 
     @NotEmpty(message = "please input your firstName")
     private String firstName;
 
-    @NotEmpty (message = "please input your middleName")
+    @NotEmpty(message = "please input your middleName")
     private String middleName;
 
-    @NotEmpty (message = "please input your lastName")
+    @NotEmpty(message = "please input your lastName")
     private String lastName;
 
-    @NotEmpty (message = "kindly input your address")
+    @NotEmpty(message = "kindly input your address")
     private String contactAddress;
 
-    @NotEmpty (message = "kindly input your phoneNuumber")
+    @NotEmpty(message = "kindly input your phoneNumber")
     private String phoneNumber;
 
-    @NotEmpty (message = "Please provide a valid email address")
+    @NotEmpty(message = "Please provide a valid email address")
     @Email
     private String email;
-    @NotEmpty (message = "Please provide your password")
+
+    @NotEmpty(message = "Please provide your password")
     private String password;
+
+    @Column(name = "is_logged_in", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isLoggedIn;
 
 }
