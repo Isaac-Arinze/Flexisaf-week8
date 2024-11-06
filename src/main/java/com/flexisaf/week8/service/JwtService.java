@@ -39,7 +39,6 @@ public class JwtService {
     private SecretKey generateKey() {
 
         byte[] decode = Decoders.BASE64.decode(getSecretKey());
-
         return Keys.hmacShaKeyFor(decode);
     }
 
@@ -56,7 +55,7 @@ public class JwtService {
         return claimResolver.apply(claims);
 
     }
-    private Claims extractClaims(String token){
+    private Claims extractClaims(String token) {
         return Jwts
                 .parser()
                 .verifyWith(generateKey())

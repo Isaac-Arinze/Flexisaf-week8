@@ -32,11 +32,8 @@ public class User {
     private String phoneNumber;
     @Column(name = "email", nullable = false, unique = true)
     private String email;
-
     private String password;
-//    @Column (columnDefinition = "boolean value is false")
     private boolean isLoggedIn;
-
     private LocalDateTime lastLoggedIn;
 }
 
