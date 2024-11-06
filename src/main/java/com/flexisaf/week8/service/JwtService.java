@@ -61,7 +61,7 @@ public class JwtService {
                 .parser()
                 .verifyWith(generateKey())
                 .build()
-                .parseSignedClaims(token)
+                .parseSignedClaims(tokengit
                 .getPayload();
     }
 
